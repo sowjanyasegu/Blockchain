@@ -1,0 +1,20 @@
+Invoke chaincoode as manufacturer
+------------------------------
+sudo docker exec -ti cli bash
+
+
+peer chaincode invoke -C crchannel -n carRegistration -o orderer.vlbc.com:7050 -c '{"Args":["initLedger"]}'
+
+peer chaincode invoke -C crchannel -n carRegistration -o orderer.vlbc.com:7050 -c '{"Args":["queryAllCars"]}'
+
+peer chaincode invoke -C crchannel -n carRegistration -o orderer.vlbc.com:7050 -c '{"Args":["queryCarByEngineNumber","8450210"]}'
+
+--------------------------------------
+ 
+invoke as dealer
+------------------------
+  docker exec -e "CORE_PEER_LOCALMSPID=DealerMSP" -e "CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/dealer.vlbc.com/users/Admin@dealer.vlbc.com/msp" -e "CORE_PEER_ADDRESS=peer0.dealer.vlbc.com:7051" cli peer chaincode invoke -C crchannel -n carRegistration -o orderer.vlbc.com:7050 -c '{"Args":["createCar","7456002","1HGCM82633A004367","Maruti Suzuki Ertiga","wine Red","2020","13"]}'
+  
+  docker exec -e "CORE_PEER_LOCALMSPID=DealerMSP" -e "CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/dealer.vlbc.com/users/Admin@dealer.vlbc.com/msp" -e "CORE_PEER_ADDRESS=peer0.dealer.vlbc.com:7051" cli peer chaincode invoke -C crchannel -n carRegistration -o orderer.vlbc.com:7050 -c '{"Args":["queryAllCars"]}'
+  
+ 
